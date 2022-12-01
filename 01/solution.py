@@ -1,7 +1,17 @@
-import sys
+#!/usr/bin/env python3
 
-sys.stdin = open("in", "r")
-sys.stdout = open("out", "w")
+import sys, os, time
+
+sys.stdin = open(os.path.join(os.path.dirname(__file__), 'in'), "r")
+sys.stdout = open(os.path.join(os.path.dirname(__file__), 'out'), "w")
+
+def update_readme(placeholder, value):
+  import fileinput
+  file = os.path.join(os.path.dirname(__file__), '..', 'README.md')
+  for line in fileinput.input(file, inplace=True):
+    if line.startswith(placeholder):
+      line = value
+    print(line, end='')
 
 CALORIES = []
 
@@ -20,20 +30,29 @@ def get_calories():
   CALORIES.append(calories)
   return CALORIES
 
-def star_one_max_calories(calories):
+def max_calories(calories):
   max_calories = 0
   for elf_calories in calories:
     total = sum(elf_calories)
     max_calories = max(max_calories, total)
   print(max_calories)
 
-def star_two_sum_of_top_3(calories):
+def sum_of_top_three(calories):
   all_sums = []
   for elf_calories in calories:
     all_sums.append(sum(elf_calories))
   all_sums.sort(reverse=True)
   print(sum(all_sums[:3]))
 
-get_calories()
-star_one_max_calories(CALORIES)
-star_two_sum_of_top_3(CALORIES)
+def main():
+  get_calories()
+  max_calories(CALORIES)
+  sum_of_top_three(CALORIES)
+
+if __name__ == '__main__':
+  start = time.process_time()
+  main()
+  end = time.process_time()
+  execution_time = str((end - start) * 1000) + " ms"
+  update_readme('{python3_execution_time_01}', '{python3_execution_time_01} - ' + execution_time)
+  
