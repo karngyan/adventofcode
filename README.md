@@ -35,4 +35,6 @@ Hardware:
 
 ## execution times
 
-{python3_execution_time_01} - 0.40799999999999864 ms
+{python3_execution_time_01} - 0.3819999999999987 ms
+
+{python3_execution_time_02} - 1.4549999999999979 ms
